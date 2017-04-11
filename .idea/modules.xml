@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/java-example/java-example.iml" filepath="$PROJECT_DIR$/java-example/java-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-oldexample/java-oldexample.iml" filepath="$PROJECT_DIR$/java-oldexample/java-oldexample.iml" />
       <module fileurl="file://$PROJECT_DIR$/kotlin-example/kotlin-example.iml" filepath="$PROJECT_DIR$/kotlin-example/kotlin-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxjava-example/rxjava-example.iml" filepath="$PROJECT_DIR$/rxjava-example/rxjava-example.iml" />
     </modules>

@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EncryptDecrypt", "EncryptDecrypt.vcproj", "{7CC0BB39-E36A-4545-959A-03888C551218}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rsanseed", "rsanseed\rsanseed.vcproj", "{B697AA15-CBBE-4AED-8E35-05051481DC09}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{7CC0BB39-E36A-4545-959A-03888C551218}.Debug.ActiveCfg = Release|Win32
+		{7CC0BB39-E36A-4545-959A-03888C551218}.Debug.Build.0 = Release|Win32
+		{7CC0BB39-E36A-4545-959A-03888C551218}.Release.ActiveCfg = Release|Win32
+		{7CC0BB39-E36A-4545-959A-03888C551218}.Release.Build.0 = Release|Win32
+		{B697AA15-CBBE-4AED-8E35-05051481DC09}.Debug.ActiveCfg = Release|Win32
+		{B697AA15-CBBE-4AED-8E35-05051481DC09}.Debug.Build.0 = Release|Win32
+		{B697AA15-CBBE-4AED-8E35-05051481DC09}.Release.ActiveCfg = Release|Win32
+		{B697AA15-CBBE-4AED-8E35-05051481DC09}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

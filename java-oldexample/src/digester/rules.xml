@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<digester-rules>
+	<object-create-rule pattern="search" classname="digester.CastsInfo" />
+
+	<pattern value="search/item">
+		<object-create-rule classname="digester.Cast" />
+
+		<call-method-rule pattern="castId" methodname="setCastId"
+			paramcount="0" />
+		<call-method-rule pattern="castName" methodname="setCastName"
+			paramcount="0" />
+		<call-method-rule pattern="categoryName" methodname="setCategoryName"
+			paramcount="0" />
+		<call-method-rule pattern="imageUrl" methodname="setImageUrl"
+			paramcount="0" />
+		<call-method-rule pattern="updateDate" methodname="setUpdateDate"
+			paramcount="0" />
+		<call-method-rule pattern="readerCount" methodname="setReaderCount"
+			paramcount="0" />
+		<call-method-rule pattern="tags" methodname="setTags"
+			paramcount="0" />
+
+		<set-next-rule methodname="addCast" />
+	</pattern>
+</digester-rules>

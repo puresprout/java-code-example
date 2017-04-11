@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<!--
+    Document   : Customer.xml
+    Created on : 2005년 6월 24일 (금), 오전 10:40
+    Author     : 박성현
+    Description:
+        Purpose of the document follows.
+-->
+
+<?xml-stylesheet type="text/xsl" href="Customer.xsl"?>
+
+<Customers>
+    <Customer id='99193'>
+        <Name>박성현</Name>
+        <Phone>016-9755-9663</Phone>
+        <Address>서울시 성동구 사근동 285-11번지 2층</Address>
+    </Customer>
+    <Customer id='99999'>
+        <Name>아무개</Name>
+        <Phone>010-1111-1111</Phone>
+        <Address>태양계 지구 한국 아무데</Address>
+    </Customer>
+</Customers>

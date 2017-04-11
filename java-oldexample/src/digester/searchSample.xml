@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<search>
+	<item>
+		<castId>AA7777</castId>
+		<castName>a디지털 라이프 Apple!</castName>
+		<imageUrl>http://wstatic.naver.com/t/2008/0911/20080911113522.gif</imageUrl>
+		<updateDate>20080715</updateDate>
+		<categoryName>IT</categoryName>
+		<readerCount>128</readerCount>
+		<tags>PC,CPU,메모리</tags>
+	</item>
+	<item>
+		<castId>BB3333</castId>
+		<castName>b디지털 라이프 Apple!</castName>
+		<imageUrl>http://wstatic.naver.com/t/2008/0911/20080911113522.gif</imageUrl>
+		<updateDate>20080715</updateDate>
+		<categoryName>생활</categoryName>
+		<readerCount>34</readerCount>
+		<tags>맥</tags>
+	</item>
+	<item>
+		<castId>CC4444</castId>
+		<castName>c디지털 라이프 Apple!</castName>
+		<imageUrl>http://wstatic.naver.com/t/2008/0911/20080911113522.gif</imageUrl>
+		<updateDate>20080715</updateDate>
+		<categoryName>엔터</categoryName>
+		<readerCount>56</readerCount>
+		<tags>과일,사랑,인맥</tags>
+	</item>
+	<item>
+		<castId>FF8888</castId>
+		<castName>d디지털 라이프 Apple!</castName>
+		<imageUrl>http://wstatic.naver.com/t/2008/0911/20080911113522.gif</imageUrl>
+		<updateDate>20080715</updateDate>
+		<categoryName>뮤직</categoryName>
+		<readerCount>12</readerCount>
+		<tags>디지,인터넷</tags>
+	</item>
+</search>

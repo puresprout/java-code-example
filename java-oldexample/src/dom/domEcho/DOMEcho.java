@@ -1,0 +1,242 @@
+/*
+ * DOMEcho.java
+ *
+ * Created on 2004�� 1�� 29�� (��), ���� 10:53
+ */
+
+package dom.domEcho;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.DOMException;
+
+import java.util.Vector;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerConfigurationException;
+
+import javax.xml.transform.dom.DOMSource;
+
+import javax.xml.transform.stream.StreamResult;
+
+public class DOMEcho extends javax.swing.JFrame {
+    
+    static Document document;
+    
+    static final String[] typeName = {  "none",
+                                        "Element",
+                                        "Attr",
+                                        "Text",
+                                        "CDATA",
+                                        "EntityRef",
+                                        "Entity",
+                                        "ProcInstr",
+                                        "Comment",
+                                        "Document",
+                                        "DocType",
+                                        "DocFragment",
+                                        "Notation"  };
+                                        
+    public class AdapterNode {
+        org.w3c.dom.Node domNode;
+        
+        public AdapterNode(org.w3c.dom.Node node) {
+            domNode = node;
+        }
+        
+        public String toString() {
+            String s = typeName[domNode.getNodeType()];
+            String nodeName = domNode.getNodeName();
+            
+            if (!nodeName.startsWith("#")) {
+                s += ": " + nodeName;
+            }
+            
+            if (domNode.getNodeValue() != null) {
+                if (s.startsWith("ProcInstr")) {
+                    s += ", ";
+                } else {
+                    s += ": ";
+                }
+                
+                //String t = domNode.getNodeValue().trim();
+                String t = domNode.getNodeValue();
+                s += t;
+            }
+            
+            return s;
+        }
+        
+        public int childCount() {
+            return domNode.getChildNodes().getLength();
+        }
+        
+        public AdapterNode child(int searchIndex) {
+            org.w3c.dom.Node node = domNode.getChildNodes().item(searchIndex);
+            return new AdapterNode(node);
+        }
+        
+        public int index(AdapterNode child) {
+            int count = childCount();
+            for (int i = 0; i < count; i++) {
+                AdapterNode n = this.child(i);
+                if (child == n)
+                    return i;
+            }
+            return -1;
+        }
+    }
+    
+    public class DomToTreeModelAdapter implements javax.swing.tree.TreeModel {
+        private Vector listenerList = new Vector();
+        
+        public Object getRoot() {
+            return new AdapterNode(document);
+        }
+        
+        public void addTreeModelListener(javax.swing.event.TreeModelListener l) {
+            if (l != null && !listenerList.contains(l)) {
+                listenerList.addElement(l);
+            }
+        }        
+        
+        public Object getChild(Object parent, int index) {
+            AdapterNode node = (AdapterNode) parent;
+            return node.child(index);
+        }
+        
+        public int getChildCount(Object parent) {
+            AdapterNode node = (AdapterNode) parent;
+            return node.childCount();
+        }
+        
+        public int getIndexOfChild(Object parent, Object child) {
+            AdapterNode node = (AdapterNode) parent;
+            return node.index((AdapterNode) child);
+        }
+        
+        public boolean isLeaf(Object node) {
+            AdapterNode n = (AdapterNode) node;
+            if (n.childCount() > 0)
+                return false;
+            else
+                return true;
+        }
+        
+        public void removeTreeModelListener(javax.swing.event.TreeModelListener l) {
+            if (l != null) {
+                listenerList.removeElement(l);
+            }
+        }
+        
+        public void valueForPathChanged(javax.swing.tree.TreePath path, Object newValue) {
+        }
+        
+    }
+                                        
+    /** Creates new form DOMEcho */
+    public DOMEcho() {
+        initComponents();
+        jTree1.setModel(new DomToTreeModelAdapter());
+    }
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    private void initComponents() {//GEN-BEGIN:initComponents
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
+
+        setTitle("DOMEcho");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                exitForm(evt);
+            }
+        });
+
+        jSplitPane1.setDividerLocation(320);
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(640, 480));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(320, 480));
+        jScrollPane1.setViewportView(jTree1);
+
+        jSplitPane1.setLeftComponent(jScrollPane1);
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(320, 480));
+        jEditorPane1.setEditable(false);
+        jScrollPane2.setViewportView(jEditorPane1);
+
+        jSplitPane1.setRightComponent(jScrollPane2);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }//GEN-END:initComponents
+    
+    /** Exit the Application */
+    private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
+        System.exit(0);
+    }//GEN-LAST:event_exitForm
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        if (args.length != 1) {
+            System.err.println("Usage: java DOMEcho filename");
+            System.exit(1);
+        }
+        
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            document = builder.parse(new File(args[0]));
+            
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            Transformer transformer = tFactory.newTransformer();
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(System.out);
+            transformer.transform(source, result);
+        } catch (TransformerConfigurationException tce) {
+            tce.printStackTrace();
+        } catch (TransformerException te) {
+            te.printStackTrace();
+        } catch (SAXParseException spe) {
+            spe.printStackTrace();
+        } catch (SAXException se) {
+            se.printStackTrace();
+        } catch (ParserConfigurationException pce) {
+            pce.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        
+        new DOMEcho().show();
+    }
+    
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTree jTree1;
+    // End of variables declaration//GEN-END:variables
+    
+}
